@@ -1,0 +1,91 @@
+.body {
+  background-color: #728fd1;
+}
+.table {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+.table td,
+.table th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+.table th {
+  background-color: #728fd1;
+  color: white;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+}
+.edit,
+.delete {
+  border-style: none;
+  color: blue;
+  text-decoration: underline solid blue;
+  background-color: rgb(255, 255, 255);
+}
+/********************************************/
+.modal-container {
+  background-color: aliceblue;
+  width: 70%;
+  border: 2px solid;
+  margin: 0 auto 0 auto;
+}
+.modal-box{
+    width: 80%;
+    margin: 30px auto;
+    /* background-color: white; */
+    position: relative;
+    text-align: end;
+}
+.modal-box .close{
+    position: absolute;
+    font-size: 26px;
+    cursor: pointer;
+}
+.modal-box .close:hover{
+    color: #c6c6c6
+}
+.input-control {
+  position: relative;
+  width: 80%;
+}
+.head-college {
+  text-align: center;
+}
+.fa {
+  position: absolute;
+  font-size: 20px;
+  padding: 10px;
+}
+.input {
+  padding: 10px 0 13px 60px;
+  width: 60%;
+}
+.form-group {
+  margin: 20px auto 20px auto;
+}
+.place {
+  width: 70%;
+  padding: 10px 0 13px 60px;
+}
+.submit,
+.gender {
+  width: 80%;
+}
+#register {
+  text-align: center;
+  margin: 0 auto 0 auto;
+  border-radius: 4px;
+  width: 70%;
+  padding: 10px;
+}
+#register:hover {
+  background-color: rgb(237, 64, 64);
+}
+.footer{
+  
+    padding: 30px 2.5%;
+}
+
