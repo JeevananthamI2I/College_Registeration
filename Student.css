@@ -22,16 +22,25 @@
 .delete {
   border-style: none;
   color: blue;
+  cursor:pointer;
   text-decoration: underline solid blue;
   background-color: rgb(255, 255, 255);
 }
 /********************************************/
 .modal-container {
   background-color: aliceblue;
-  width: 70%;
+  width: 60%;
   border: 2px solid;
   margin: 0 auto 0 auto;
+  display: none;
+  top:16px;
+  /* z-index: index 1; */
+  position:absolute;
+  left: 18%;
+  text-align: center;
+  /* overflow: auto; */
 }
+
 .modal-box{
     width: 80%;
     margin: 30px auto;
@@ -39,7 +48,7 @@
     position: relative;
     text-align: end;
 }
-.modal-box .close{
+.close{
     position: absolute;
     font-size: 26px;
     cursor: pointer;
@@ -84,8 +93,9 @@
 #register:hover {
   background-color: rgb(237, 64, 64);
 }
-.footer{
-  
-    padding: 30px 2.5%;
-}
 
+.open-window{
+  visibility: visible;
+  transform: scale(1.0);
+  transition: visibility 0s linear 0s, opacity 0.25s 0s, transform 0.25s;
+}
