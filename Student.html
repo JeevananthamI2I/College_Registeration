@@ -1,76 +1,131 @@
-<!DOCTYPE html > <html lang="en">
-    <head>
-        <meta charset="UTF-8"/>
-        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
-        <link rel="stylesheet" href="Student.css"/>
-        <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
-        <title>Document</title>
-    </head>
-    <body>
-        <button type="button" id="add" class="add" data-target="#myModal">ADD College</button>
-        <!-- <button type="button" id="get" onclick="getData()" class="get">Get</button> -->
-        <div class="body-container" id="body"></div>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="registration.png" type="image/icon type" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <link rel="stylesheet" href="Student.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="msg-content" id="msg-box">
+      <!-- <span><i class="fa fa-check-circle" aria-hidden="true"></i></span> -->
+      <span class="msg" id="msg"></span>
+    </div>
+    <div class="content" id="content">
+      <button type="button" id="add" class="add" data-target="#myModal">
+        ADD College
+      </button>
+      <div class="body-container" id="body"></div>
+    </div>
+    <!-- create registeration form -->
+    <div class="modal-container" role="document" id="modal">
+      <div class="modal-box">
+        <span class="close">&times;</span>
+      </div>
+      <div class="model-body">
+        <form action="" class="login-box" id="form" name="myForm" method="post">
+          <h3 class="head-college" id="head">COLLEGE REGISTERATION FORM</h3>
+          <div class="form-group input-control">
+            <i class="fa fa-university"></i>
+            <input
+              type="text"
+              id="name"
+              class="input"
+              placeholder="Name"
+              name="name"
+            />
+            <span></span>
+          </div>
+          <div class="form-group input-control">
+            <i class="fa fa-home"></i>
+            <input
+              type="text"
+              id="university-name"
+              class="input"
+              placeholder="University Name"
+              name="name"
+            />
+            <span></span>
+          </div>
+          <div class="form-group input-control">
+            <i class="fa fa-lock"></i>
+            <input type="number" class="input" id="rank" placeholder="Rank" />
+            <span></span>
+          </div>
+          <div class="form-group input-control">
+            <input
+              type="date"
+              class="input date"
+              id="date"
+              placeholder="date"
+            />
+            <span></span>
+          </div>
+          <div class="form-group gender">
+            <input
+              type="radio"
+              id="men"
+              placeholder="Male"
+              name="gender"
+              value="MEN_COLLEGE"
+            />
+            <label for="men">MEN's College</label>
+            <input
+              type="radio"
+              id="female"
+              placeholder="Female"
+              name="gender"
+              value="WOMEN_COLLEGE"
+            />
+            <label for="female">FEMALE College</label>
+            <input
+              type="radio"
+              id="co-ed"
+              placeholder="co-ed"
+              name="gender"
+              value="COEDUCATION_COLLEGE"
+            />
+            <label for="co-ed">CO EDUCATION</label>
+            <span></span>
+          </div>
+          <div class="form-group input-control district">
+            <i class="fa fa-map-marker" aria-hidden="true"></i>
+            <label for="district"></label>
+            <select
+              name="district"
+              class="place"
+              id="district"
+              placeholder="Select a district"
+            >
+              <option selected hidden value="Default">Select a district</option>
+              <option value="Chennai">Chennai</option>
+              <option value="Krishnagiri">Krishnagiri</option>
+              <option value="Vellore">Vellore</option>
+              <option value="Salem">Salem</option>
+              <option value="Madurai">Madurai</option>
+            </select>
+            <span></span>
+          </div>
+          <div class="form-group submit">
+            <button
+              type="submit"
+              class="btn submit-button"
+              name="submit"
+              id="register"
+            >
+              Register
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
 
-        <!-- create registeration form -->
-        <div class="modal-container" role='document' id="modal">
-            <div class="modal-box">
-                <span class="close">&times;</span>
-            </div>
-            <div class="model-body">
-                <form action="" class="login-box" id="form" name="myForm" method="post">
-                    <h3 class="head-college" id="head">COLLEGE REGISTERATION FORM</h3>
-                    <div class="form-group input-control">
-                        <i class="fa fa-university"></i>
-                        <input type="text" id="name" class="input" placeholder="Name" name="name"/>
-                        <span></span>
-                    </div>
-                    <div class="form-group input-control">
-                        <i class="fa fa-home"></i>
-                        <input type="text" id="university-name" class="input" placeholder="University Name" name="name"/>
-                        <span></span>
-                    </div>
-                    <div class="form-group input-control">
-                        <i class="fa fa-lock"></i>
-                        <input type="number" class="input" id="rank" placeholder="Rank"/>
-                        <span></span>
-                    </div>
-                    <div class="form-group input-control">
-                        <input type="date" class="input date" id="date" placeholder="date"/>
-                        <span></span>
-                    </div>
-                    <div class="form-group gender">
-                        <input type="radio" id="men" placeholder="Male" name="gender" value="MEN_COLLEGE"/>
-                        <label for="men">MEN's College</label>
-                        <input type="radio" id="female" placeholder="Female" name="gender" value="WOMEN_COLLEGE"/>
-                        <label for="female">FEMALE College</label>
-                        <input type="radio" id="co-ed" placeholder="co-ed" name="gender" value="COEDUCATION_COLLEGE"/>
-                        <label for="co-ed">CO EDUCATION</label>
-                        <span></span>
-                    </div>
-                    <div class="form-group input-control district">
-                        <i class="fa fa-map-marker" aria-hidden="true"></i>
-                        <label for="district"></label>
-                        <select name="district" class="place" id="district" placeholder="Select a district">
-                            <option selected hidden value="Default">Select a district</option>
-                            <option value="Chennai">Chennai</option>
-                            <option value="Krishnagiri">Krishnagiri</option>
-                            <option value="Vellore">Vellore</option>
-                            <option value="Salem">Salem</option>
-                            <option value="Madurai">Madurai</option>
-                        </select>
-                        <span></span>
-                    </div>
-                    <div class="form-group submit">
-                        <button type="submit" class="btn submit-button" name="submit" id="register">
-                            Register
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </div>
-
-        <script src="Student.js"></script>
-    </body>
+    <script src="Student.js"></script>
+  </body>
 </html>
