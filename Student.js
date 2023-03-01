@@ -1,16 +1,3 @@
-getData();
-const body = document.getElementById("body");
-const content = document.getElementById("content");
-const toast = document.getElementById("msg-box");
-// popup modal
-const modal = document.getElementById("modal");
-const btn = document.getElementById("add");
-const close = document.getElementsByClassName("close")[0];
-//head tag
-const head = document.getElementById("head");
-//submit
-const update = document.getElementById("register");
-//input values
 const nameField = document.getElementById("name");
 const universityField = document.getElementById("university-name");
 const rankField = document.getElementById("rank");
@@ -18,14 +5,16 @@ const inaugurationDateField = document.getElementById("date");
 const typeField = document.querySelectorAll("input[name='gender']");
 const placeField = document.getElementById("district");
 
-var editId = "";
-//const url = "http://localhost:8080/college/"
+let editId = "";
+const url = "http://localhost:8080/college/";
+getData();
 async function getData() {
-  const response = await fetch("http://localhost:8080/college/");
+  const response = await fetch(url);
   const data = await response.json();
   collegeLists = `<div class='content'>
     <table class='table'>
-    <tr><th>Name</th>
+    <tr><th>S.No</th>
+    <th>Name</th>
     <th>University</th>
     <th>Rank</th>
     <th>Date</th>
@@ -35,7 +24,8 @@ async function getData() {
     <th>Options</th></tr>`;
   data.forEach((college) => {
     collegeLists += `
-                 <tr><td>${college.name}</td>
+                 <tr><td></td>
+                 <td>${college.name}</td>
                   <td>${college.university}</td>
                   <td>${college.rank}</td>
                   <td>${college.inaugurationDate}</td>
@@ -50,9 +40,8 @@ async function getData() {
                   </tr></div>`;
   });
   collegeLists += "</table></div>";
-  body.innerHTML = collegeLists;
+  document.getElementById("body").innerHTML = collegeLists;
 }
-
 function updateCollegeValue(
   id,
   name,
@@ -76,25 +65,14 @@ function updateCollegeValue(
   placeField.value = place;
   inaugurationDateField.value = inaugurationDate.substring(0, 10);
   typeField.value = type;
-  head.innerHTML = "Update College Registeration";
-  update.innerHTML = "Update";
-  content.classList.toggle("active");
-  modal.style.display = "block";
+  document.getElementById("head").innerHTML = "Update College Registeration";
+  document.getElementById("register").innerHTML = "Update";
+  document.getElementById("content").classList.toggle("active");
+  document.getElementById("modal").style.display = "block";
 }
 
-document.getElementById("form").addEventListener("submit", (event) => {
-  event.preventDefault();
-  var sub = document.getElementById("register");
-  if ("Register" === sub.textContent) {
-    addData();
-  }
-  if ("Update" === sub.textContent) {
-    editCOllege(editId);
-  }
-});
-
-async function addData() {
-  await fetch("http://localhost:8080/college/", {
+function addData() {
+  fetch(url, {
     method: "POST",
     body: JSON.stringify({
       name: nameField.value.trim(),
@@ -107,32 +85,55 @@ async function addData() {
     headers: {
       "Content-Type": "application/json",
     },
+  }).then((res) => {
+    if (res.ok) {
+      document.getElementById("msg-box").classList.toggle("toast");
+      document.getElementById("msg-box").innerHTML = "Succesfull created";
+      setTimeout(() => {
+        document.getElementById("msg-box").classList.remove("toast");
+        document.getElementById("msg-box").innerHTML = "";
+      }, 3000);
+      getData();
+      location.reload()
+    } else {
+      document.getElementById("msg-box").classList.toggle("error-toast");
+      document.getElementById("msg-box").innerHTML = "Something went wrong!!!";
+      setTimeout(() => {
+        document.getElementById("msg-box").classList.remove("error-toast");
+        document.getElementById("msg-box").innerHTML = "";
+      }, 3000);
+    }
   });
-  getData();
-  toast.classList.toggle("toast");
-  toast.innerHTML = "Succesfull created!!!";
 }
 
 function deleteCollege(id) {
-  if (confirm("Are you sure you want to delete this item?")) {
-    fetch("http://localhost:8080/college/" + id, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    }).then(() => {
-      toast.classList.toggle("toast");
-      toast.innerHTML = "Succesfull Deleted!!!";
+  fetch(url + id, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  }).then((res) => {
+    if (res.ok) {
+      document.getElementById("msg-box").classList.toggle("toast");
+      document.getElementById("msg-box").innerHTML = "Succesfull Deleted!!!";
+      setTimeout(() => {
+        document.getElementById("msg-box").classList.remove("toast");
+        document.getElementById("msg-box").innerHTML = "";
+      }, 3000);
       getData();
-    });
-  } else {
-    toast.classList.toggle("toast");
-    toast.innerHTML = "Delete cancel!!!";
-  }
+    } else {
+      document.getElementById("msg-box").classList.toggle("error-toast");
+      document.getElementById("msg-box").innerHTML = "Something went wrong!!!";
+      setTimeout(() => {
+        document.getElementById("msg-box").classList.remove("error-toast");
+        document.getElementById("msg-box").innerHTML = "";
+      }, 3000);
+    }
+  });
 }
 
-async function editCOllege(id) {
-  await fetch("http://localhost:8080/college/" + id, {
+function editCOllege(id) {
+  fetch(url + id, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
@@ -145,10 +146,24 @@ async function editCOllege(id) {
       type: collegeType(),
       place: placeField.value.trim(),
     }),
+  }).then((res) => {
+    if (res.status === 200) {
+      document.getElementById("msg-box").classList.toggle("toast");
+      document.getElementById("msg-box").innerHTML = "Succesfull Updated!!!";
+      setTimeout(() => {
+        document.getElementById("msg-box").classList.remove("toast");
+        document.getElementById("msg-box").innerHTML = "";
+      }, 3000);
+      getData();
+    } else {
+      document.getElementById("msg-box").classList.toggle("error-toast");
+      document.getElementById("msg-box").innerHTML = "Something went wrong!!!";
+      setTimeout(() => {
+        document.getElementById("msg-box").classList.remove("error-toast");
+        document.getElementById("msg-box").innerHTML = "";
+      }, 3000);
+    }
   });
-  toast.classList.toggle("toast");
-  toast.innerHTML = "Succesfull Updated!!!";
-  getData();
 }
 
 function collegeType() {
@@ -162,75 +177,33 @@ function collegeType() {
   return gender;
 }
 
-// When the user clicks the button, open the modal
-btn.onclick = function () {
-  content.classList.toggle("active");
-  modal.style.display = "block";
+document.getElementById("add").onclick = function () {
+  document.getElementById("content").classList.toggle("active");
+  document.getElementById("modal").style.display = "block";
 };
 
-// When the user clicks on <span> (x), close the modal
-close.onclick = function () {
-  modal.style.display = "none";
-  content.classList.remove("active");
+document.getElementsByClassName("close")[0].onclick = function () {
+  document.getElementById("modal").style.display = "none";
+  document.getElementById("content").classList.remove("active");
 };
 
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function (event) {
-  if (event.target == modal) {
-    modal.style.display = "none";
+document.getElementById("");
+
+document.getElementById("form").addEventListener("submit", (event) => {
+  event.preventDefault();
+  var sub = document.getElementById("register");
+  if ("Register" === sub.textContent) {
+    addData();
+    document.getElementById("modal").style.display = "none";
+    document.getElementById("content").classList.remove("active");
+    // document.getElementById("form").reset();
   }
-};
+  if ("Update" === sub.textContent) {
+    editCOllege(editId);
+    document.getElementById("modal").style.display = "none";
+    document.getElementById("content").classList.remove("active");
+    // document.getElementById("form").reset();
+  }
 
-// <td data-id='${college.id}'>
-// collegeLists += "</table></div>";
-// body.innerHTML = collegeLists;
-// body.addEventListener("click", (e) => {
-//   console.log(e);
-//   e.preventDefault();
-//   let deleteButtonPressed = e.target.id == "delete";
-//   let editButtonPressed = e.target.id == "edit";
-//   id = e.target.parentElement.dataset.id;
-//   if (deleteButtonPressed) {
-//     deleteStudent(id);
-//   } else if (editButtonPressed) {
-//     var index = data.findIndex((obj) => obj.id == id);
-
-//     if (data[index].type == "MEN_COLLEGE") {
-//       document.getElementById("men").checked = true;
-//     } else if (data[index].type == "WOMEN_COLLEGE") {
-//       document.getElementById("female").checked = true;
-//     } else if (data[index].type == "COEDUCATION_COLLEGE") {
-//       document.getElementById("co-ed").checked = true;
-//     }
-
-//     const nameValue = data[index].name;
-//     const universityValue = data[index].university;
-//     const rankValue = data[index].rank;
-//     const inaugurationDateValue = data[index].inaugurationDate;
-//     const placeValue = data[index].place;
-//     const type = data[index].type;
-
-//     if (e.target.id == "edit") {
-//       head.innerHTML = "Update College Registeration";
-//       update.innerHTML = "Update";
-//       modal.style.display = "block";
-
-//       nameField.value = nameValue;
-//       universityField.value = universityValue;
-//       rankField.value = rankValue;
-//       placeField.value = placeValue;
-//       inaugurationDateField.value = inaugurationDateValue.substring(0, 10);
-//       typeField.value = type;
-
-// var sub = document.getElementById("register");
-// if (sub.textContent === "Update") {
-//   document
-//     .getElementById("form")
-//     .addEventListener("submit", (event) => {
-//       event.preventDefault();
-//       editStudent(id);
-//     });
-// }
-//     }
-//   }
-// });
+  
+});
